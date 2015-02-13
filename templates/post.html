@@ -1,22 +1,24 @@
 <article>
-  <div class="row">
-    <div class="info">
-      <header>
-        <div class="post-heading">
-          <h1>$title$</h1>
-        </div>
-        <p><i class="fa fa-calendar-o"></i> <strong>$date$</strong>
-          $if(author)$
-        <p class="by">by <em>$author$</em></p>
-        $endif$
-        $if(tags)$
-        &nbsp; <i class="fa fa-tags"></i> $tags$
-        $endif$
-        </p>  
-      </header>
+  <div class="row-fluid">
+    <div class="col-xs-12">
+      <div class="info">
+        <header>
+          <div class="post-heading">
+            <h1>$title$</h1>
+          </div>
+          <p><i class="fa fa-calendar-o"></i> <strong>$date$</strong>
+            $if(author)$
+          <p class="by">by <em>$author$</em></p>
+          $endif$
+          $if(tags)$
+          &nbsp; <i class="fa fa-tags"></i> $tags$
+          $endif$
+          </p>  
+        </header>
+      </div>
+      <hr>
+      
+      $body$
     </div>
-    <hr>
-    
-    $body$
   </div>
 </article>

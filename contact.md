@@ -2,6 +2,8 @@
 title: Contact
 contact: true
 ---
+<div class="row-fluid">
+<div class="col-xs-12">
 
 Contact
 -------
@@ -82,4 +84,5 @@ PGP Public Key
     =8lGo
     -----END PGP PUBLIC KEY BLOCK-----
 
-
+</div>
+</div>
