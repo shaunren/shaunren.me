@@ -7,7 +7,7 @@ Contact
 -------
 -------
 
-You can reach me by email at [shaun.ren@linux.com](mailto:shaun.ren@linux.com).
+You can reach me by email at [shaun@shaunren.me](mailto:shaun@shaunren.me).
 
 PGP Public Key
 --------------
