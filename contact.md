@@ -6,7 +6,7 @@ contact: true
 <div class="col-xs-12">
 
 Contact
--------
+=======
 -------
 
 You can reach me by email at [shaun@shaunren.me](mailto:shaun@shaunren.me).
