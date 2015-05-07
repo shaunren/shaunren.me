@@ -1,6 +1,8 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
+import qualified Data.Set as S
+import           Text.Pandoc.Options
 import           Hakyll
 import           Hakyll.Web.Tags
 
@@ -48,13 +50,13 @@ main = hakyll $ do
 
     match "contact.md" $ do
         route   $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/default.html" (taggedPostCtx tags)
             >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/post.html"    (taggedPostCtx tags)
             >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" (taggedPostCtx tags)
@@ -121,3 +123,15 @@ feedConfiguration = FeedConfiguration
     , feedAuthorEmail = "shaun@shaunren.me"
     , feedRoot        = "https://shaunren.me"
     }
+
+--------------------------------------------------------------------------------
+pandocMathCompiler =
+    let mathExtensions = [Ext_tex_math_dollars, Ext_tex_math_double_backslash,
+                          Ext_latex_macros]
+        defaultExtensions = writerExtensions defaultHakyllWriterOptions
+        newExtensions = foldr S.insert defaultExtensions mathExtensions
+        writerOptions = defaultHakyllWriterOptions {
+                          writerExtensions = newExtensions,
+                          writerHTMLMathMethod = MathJax ""
+                        }
+    in pandocCompilerWith defaultHakyllReaderOptions writerOptions

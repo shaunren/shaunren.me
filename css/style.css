@@ -76,6 +76,11 @@ h1 a.navbar-brand {
 span {
 	color:#428bca;
 }
+
+span.math * {
+    color:#656565;
+}
+
 .nav-pills  {
     float: right;
 	font-weight:800;
@@ -541,6 +546,10 @@ ul.posts{
     padding:0;
     font-size:18px;
     list-style:none;
+}
+
+ul.posts li {
+    padding:5px 0;
 }
 
 /* --- author info --- */
