@@ -21,10 +21,11 @@ Here we give a overview of the general approach to solving a quantum problem, gi
 
 In general, we would like to find a _propagator_ $U(t)$ such that
 $$ \ket{\psi(t)} = U(t)\ket{\psi(0)}. $$
-First, we solve find eigenstates $\ket{E}$ of the Hermitian operator $H$, i.e. $$ H\ket{E} = E\ket{E} \quad\text{where}\quad E \in \CC. $$
-Then we can expand $\ket{\psi(t)} = U(t)\ket{\psi(0)}$ in the $E$ basis:
+First, we find the eigenstates $\ket{E}$ of the Hermitian operator $H$ (note that the eigenvalues of an Hermitian operator are real), i.e. $$ H\ket{E} = E\ket{E} \quad\text{where}\quad E \in \RR. $$
+Then we can expand $\ket{\psi(t)} = U(t)\ket{\psi(0)}$ in the $E$ basis (also called the _energy basis_):
 $$ \ket{\psi(t)} = \sum \ket{E} \braket{E}{\psi(t)} = \sum f_E(t) \ket{E}. $$
-By Schrödinger equation, we get $i\hbar f_E' = Ef_E$, which has solution $f_E(t) = f_E(0)e^{-iEt/\hbar}$.
+By Schrödinger equation, we get
+$$ i\hbar f_E' = Hf_E = Ef_E, \quad\text{which has solution}\quad f_E(t) = f_E(0)e^{-iEt/\hbar}. $$
 Thus, comparing this with the definition of the propagator, we can see that
 $$ U(t) = \sum \ket{E}\bra{E} e^{-iEt/\hbar}. $$
 
@@ -45,16 +46,16 @@ $$ U(x_N, t_N; x_0, t_0) = A\int_{x_0}^{x_N} \exp\left(\frac{iS[x(t)]}{k}\right)
 where $\Ds[x(t)]$ means the integral is to be integrated for all paths from $x_0$ to $x_N$, and $A$ is a normalization factor.
 
 It can be shown that
-$$ \int \Ds[x(t)] = \frac{1}{B} \lim_{\substack{N\to\infty \\ \epsilon\to 0}} \int_{-\infty}^\infty \cdots \int_{-\infty}^{\infty} \frac{dx_1}{B}  \cdots \frac{dx_{N-1}}{B}, $$
-    where $B = \sqrt{\frac{2i\pi\hbar\epsilon}{m}}$.
+$$ \int \Ds[x(t)] = \lim_{\substack{N\to\infty \\ \epsilon\to 0}} \frac{1}{A} \int_{-\infty}^\infty \cdots \int_{-\infty}^{\infty} \frac{dx_1}{A}  \cdots \frac{dx_{N-1}}{A}, $$
+    where $A = \sqrt{\frac{2i\pi\hbar\epsilon}{m}}$.
 
-This equation shows that _every_ path from $x_0$ to $x_N$ is given equal weight in QM. Why, then, is the classical path $x_{cl}$ the preferred path for macroscopic scenarios? This is because of the fact that for large $S[x(t)]$, the complex exponentials tend to cancel each other out, while the paths that are close to the classical path tend to add constructively. In particular, when the phase is above $\pi$, the coherence starts to die away, i.e. $|S[x(t)]| \le \hbar \pi$ are the coherent paths. Hence classical mechanics reemerges in macroscopic scenarios.
+This equation shows that _every_ path from $x_0$ to $x_N$ is given equal weight in QM. Why, then, is the classical path $x_{cl}$ the preferred path for macroscopic scenarios? This is because of the fact that for large $S[x(t)]$, the complex exponentials tend to cancel each other out, while the paths that are close to the classical path tend to add constructively. In particular, when the magnitude of the phase is greater than $\pi$, the coherence starts to die away, i.e. $|S[x(t)]| \le \hbar\pi S_{cl}$ are the coherent paths. Hence classical mechanics reemerges in macroscopic scenarios.
 
-### A Simple Problem: The Free Particle
+### A Simple Problem: The Free Particle in 1D
 We have a particle moving in free space. Classically, the particle has mass $m$ and momentum $p = mv$, with Hamiltonian $\Hs = p^2/2m$. In the quantum world, this becomes $H = P^2/2m$.
 
-#### Finding the Propagator using Canonical Quantization
-We first solve this problem using the traditional canonical quantization formulation.
+#### Finding the Propagator with Canonical Quantization
+We first solve this problem with the traditional canonical quantization formulation.
 From above, the _stationary states_ are of the form $\ket{\psi(t)} = \ket{E}e^{-iEt/\hbar}$. So for the eigenstates $\ket{E}$ of $H$, we have
 $$ H\ket{E} = \frac{P^2}{2m}\ket{E} = E\ket{E}. $$
 To solve this, first note that any eigenstate of $P$ must also be an eigenstate of $P^2$. Thus feeding the eigenstates $\ket{p}$ of $P$ into the equation above, we find
@@ -62,9 +63,11 @@ $$ \left(\frac{p^2}{2m} - E\right)\ket{p} = 0. $$ Since $\ket{p}$ is nonzero, we
 $$ \ket{E} = A\ket{p = \sqrt{2mE}} + B\ket{p = -\sqrt{2mE}}, $$ and
 $$ U(t) = \int_{-\infty}^\infty \ket{E}\bra{E} e^{-iEt/\hbar} \, dE = \int_{-\infty}^\infty \ket{p}\bra{p} e^{-ip^2t/2m\hbar} \, dp. $$
 Finally,
-$$ U(x,t;x') = \int_{-\infty}^{\infty} \braket{x}{p} \braket{p}{x'} e^{-ip^2t/2m\hbar} \, dp = \sqrt{\frac{m}{2\pi\hbar i t}} e^{im(x-x')^2/2\hbar t}. $$
+$$ \begin{align*}U(x,t;x') = \int_{-\infty}^{\infty} \braket{x}{p} \braket{p}{x'} e^{-ip^2t/2m\hbar} \, dp
+&= \frac{1}{2\pi\hbar} \int_{-\infty}^\infty e^{ipx/\hbar} \left(e^{ipx'/\hbar}\right)^* e^{-ip^2t/2m\hbar} \, dp
+\\ &= \sqrt{\frac{m}{2\pi\hbar i t}} e^{im(x-x')^2/2\hbar t}. \end{align*} $$
 
-#### Finding the Propagator using Path Integral
+#### Finding the Propagator with Path Integral
 We would like to evaluate the integral mentioned above. As it turns out, in this particular case, evaluating the approximation $e^{iS[x_{cl}(t)]/\hbar}$ is sufficient.
 
 The classical path $x_{cl}$ is the straight line path $x \to x'$, with uniform velocity $v = (x'-x)/t$. Since $\Ls = mv^2/2$ is constant, $$ S[x_{cl}(t)] = \int_0^t \Ls dt' = \frac{m}{2} \frac{(x-x')^2}{t}. $$
