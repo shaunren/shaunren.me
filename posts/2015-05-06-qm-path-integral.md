@@ -16,8 +16,8 @@ Traditionally, quantum mechanics is formulated by the following postulates, whic
 4. The state evolves according to [Schrödinger equation](https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation): $$ i\hbar\frac{d}{dt} \ket{\psi(t)} = H\ket{\psi(t)}, $$ where $H = \Hs(X, P)$, and $\Hs(x,p)$ is the classical Hamiltonian.
 
 
-#### Solving the Quantum Problem
-Here we give a overview of the general approach to solving a quantum problem, given $H$ and $\ket{\psi(0)}$. Assume $H$ has no explict dependence on $t$.
+#### Solving the Quantum Problem in 1D
+Here we give a overview of the general approach to solving the quantum problem in 1D, given $H$ and $\ket{\psi(0)}$. Assume $H$ has no explict dependence on $t$.
 
 In general, we would like to find a _propagator_ $U(t)$ such that
 $$ \ket{\psi(t)} = U(t)\ket{\psi(0)}. $$
@@ -31,7 +31,7 @@ $$ U(t) = \sum \ket{E}\bra{E} e^{-iEt/\hbar}. $$
 
 Finally, to evaluate $\psi(x,t)$, note that since $$ \int \ket{x'}\bra{x'}\,dx' = I, $$
 we have $$ \psi(x,t) = \braket{x}{\psi(t)} = \bra{x}U(t)\ket{\psi(0)} = \int \bra{x}{U(t)}\ket{x'}\braket{x'}{\psi(0)}\,dx'. $$
-Thus we can find any $\psi(x,t)$ given $U(t)$ and $\ket{\psi(0)}$, and $U(t)$ can be found using the process described above for time independent $H$. Hence, the quantum problem is solved.
+Thus we can find any $\psi(x,t)$ given $U(t)$ and $\ket{\psi(0)}$, and $U(t)$ can be found using the process described above for time independent $H$. Hence, the (time-independent) quantum problem in 1D is solved.
 
 
 ### Path Integral Formulation
@@ -61,7 +61,7 @@ $$ H\ket{E} = \frac{P^2}{2m}\ket{E} = E\ket{E}. $$
 To solve this, first note that any eigenstate of $P$ must also be an eigenstate of $P^2$. Thus feeding the eigenstates $\ket{p}$ of $P$ into the equation above, we find
 $$ \left(\frac{p^2}{2m} - E\right)\ket{p} = 0. $$ Since $\ket{p}$ is nonzero, we have $$ p = \pm\sqrt{2mE}. $$ Hence for each eigenvalue $E$, there are two orthogonal eigenstates, so
 $$ \ket{E} = A\ket{p = \sqrt{2mE}} + B\ket{p = -\sqrt{2mE}}, $$ and
-$$ U(t) = \int_{-\infty}^\infty \ket{E}\bra{E} e^{-iEt/\hbar} \, dE = \int_{-\infty}^\infty \ket{p}\bra{p} e^{-ip^2t/2m\hbar} \, dp. $$
+$$ U(t) = \int_{0}^\infty \ket{E}\bra{E} e^{-iEt/\hbar} \, dE = \int_{-\infty}^\infty \ket{p}\bra{p} e^{-ip^2t/2m\hbar} \, dp. $$
 Finally,
 $$ \begin{align*}U(x,t;x') = \int_{-\infty}^{\infty} \braket{x}{p} \braket{p}{x'} e^{-ip^2t/2m\hbar} \, dp
 &= \frac{1}{2\pi\hbar} \int_{-\infty}^\infty e^{ipx/\hbar} \left(e^{ipx'/\hbar}\right)^* e^{-ip^2t/2m\hbar} \, dp
