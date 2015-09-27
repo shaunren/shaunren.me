@@ -117,7 +117,7 @@ taggedPostCtx tags =
 --------------------------------------------------------------------------------
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
-    { feedTitle       = "shaunren.me - RSS feed"
+    { feedTitle       = "shaunren.me - Atom feed"
     , feedDescription = "Shaun Ren's personal site"
     , feedAuthorName  = "Shaun Ren"
     , feedAuthorEmail = "shaun@shaunren.me"
