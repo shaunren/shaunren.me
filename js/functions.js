@@ -66,8 +66,5 @@ $(document).ready(function () {
 } 
 // fancybox
 	jQuery(".fancybox").fancybox();
-
-new WOW().init()	
-
 })(jQuery);
 
