@@ -1,5 +1,7 @@
 ---
 title: The Path Integral Formulation of Quantum Mechanics
+description: The path integral formulation of quantum mechanics compared to the canonical quantization formulation.
+keywords: physics, quantum-mechanics
 tags: physics, quantum-mechanics
 ---
 
