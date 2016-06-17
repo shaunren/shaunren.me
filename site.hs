@@ -11,12 +11,12 @@ import           Hakyll.Web.Tags
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
-    tags <- buildTags "posts/*" $ fromCapture "tags/*.html"
+    tags <- buildTags "posts/*" $ fromCapture "tags/*"
 
     -- Post tags
     tagsRules tags $ \tag pattern -> do
         let title = "Posts tagged '" ++ tag ++ "'"
-        route idRoute
+        route $ setExtension "html"
         compile $ do
             list <- postList tags pattern recentFirst
             makeItem ""
@@ -28,6 +28,7 @@ main = hakyll $ do
                         (constField "title" title `mappend`
                             postCtx)
                 >>= relativizeUrls
+                >>= cleanHtmlExt
             
     match "images/**" $ do
         route   idRoute
@@ -54,6 +55,7 @@ main = hakyll $ do
         compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/default.html" (taggedPostCtx tags)
             >>= relativizeUrls
+            >>= cleanHtmlExt
 
     match "posts/*" $ do
         route $ setExtension "html"
@@ -62,6 +64,7 @@ main = hakyll $ do
             >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" (taggedPostCtx tags)
             >>= relativizeUrls
+            >>= cleanHtmlExt
 
     match ("index.html" .||. "archive.html") $ do
         route idRoute
@@ -78,6 +81,7 @@ main = hakyll $ do
                 >>= applyAsTemplate ctx
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
+                >>= cleanHtmlExt
 
     create ["atom.xml"] $ do
         route idRoute
@@ -87,7 +91,6 @@ main = hakyll $ do
                     
     match "templates/*" $ compile templateCompiler
 
-
 --------------------------------------------------------------------------------
 
 postList :: Tags -> Pattern -> ([Item String] -> Compiler [Item String])
@@ -96,6 +99,10 @@ postList tags pattern preprocess' = do
     postItemTpl <- loadBody "templates/postitem.html"
     posts <- preprocess' =<< loadAll pattern
     applyTemplateList postItemTpl (taggedPostCtx tags) posts
+
+
+cleanHtmlExt :: Item String -> Compiler (Item String)
+cleanHtmlExt = return . fmap (replaceAll "\\.html" $ const "")
 
 
 --------------------------------------------------------------------------------
